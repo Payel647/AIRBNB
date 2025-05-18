@@ -15,7 +15,7 @@
  
  🔹 Backend: Node.js, Express.js, MongoDB
  
- 🔹 Authentication: Passport.js, JWT, bcrypt
+ 🔹 Authentication: Passport.js
  
  🔹 Storage & APIs: Cloudinary (Image Storage), Maptiler (Location Services)
  
