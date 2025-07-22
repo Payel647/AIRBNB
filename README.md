@@ -22,8 +22,8 @@
  🔹 Templating Engine: EJS for dynamic rendering
  
  🔹 Architecture: Follows the MVC (Model-View-Controller) Pattern for scalability
-### 🏠 Home Page
+###  Home Page
 
-![Home Page](https://github.com/Payel647/AIRBNB/blob/main/assets/homepage.png?raw=true)
+![Home Page](https://github.com/Payel647/AIRBNB/blob/main/Airbnb.png)
 
 Made by Payel Mallick
