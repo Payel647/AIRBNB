@@ -26,4 +26,4 @@
 
 ![Home Page](https://github.com/Payel647/AIRBNB/blob/main/Airbnb.png)
 
-Made by Payel Mallick
+### Made by Payel Mallick
