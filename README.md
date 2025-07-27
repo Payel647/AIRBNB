@@ -33,7 +33,7 @@ A fully functional Airbnb-inspired web app where users can register, browse hote
 
 ## 🌐 Live Demo
 
-👉 [Live Site on Render](https://wanderlustpayel.onrender.com)
+👉 [Live Site on Render](https://wanderlustpayel.onrender.com/listings)
 
 👉 [GitHub Repository](https://github.com/Payel647/AIRBNB)
 
