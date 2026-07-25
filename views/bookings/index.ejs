@@ -1,0 +1,65 @@
+<% layout("/layouts/boilerplates") %>
+
+<style>
+  .booking-page {
+    padding: 2.5rem 0;
+  }
+  .booking-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .booking-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08);
+  }
+  .booking-card .card-body {
+    padding: 1.25rem !important;
+  }
+  .booking-card .card-title {
+    margin-bottom: 0.85rem;
+  }
+  .booking-detail {
+    color: #444;
+  }
+  .booking-empty,
+  .booking-message {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+</style>
+
+<div class="booking-page">
+  <h2 class="booking-title">My Bookings</h2>
+
+  <% if (message) { %>
+    <div class="alert alert-info booking-message">
+      <%= message %>
+      <% if (!currUser) { %>
+        <a href="/login" class="btn btn-sm btn-dark ms-2">Log in</a>
+      <% } %>
+    </div>
+  <% } %>
+
+  <% if (bookings.length === 0 && !message) { %>
+    <div class="alert alert-info booking-empty">You have no bookings yet.</div>
+  <% } else if (bookings.length > 0) { %>
+    <div class="row gy-4">
+      <% for (let booking of bookings) { %>
+        <div class="col-sm-12 col-md-6 col-xl-4">
+          <div class="card booking-card bg-white">
+            <div class="card-body">
+              <h5 class="card-title"><%= booking.listing.title %></h5>
+              <p class="card-text booking-detail mb-2"><strong>Check-in:</strong> <%= booking.checkIn.toDateString() %></p>
+              <p class="card-text booking-detail mb-2"><strong>Check-out:</strong> <%= booking.checkOut.toDateString() %></p>
+              <p class="card-text booking-detail mb-2"><strong>Total:</strong> ₹<%= booking.totalPrice.toLocaleString("en-IN") %></p>
+              <p class="card-text booking-detail"><strong>Location:</strong> <%= booking.listing.location %></p>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+</div>

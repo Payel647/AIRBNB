@@ -101,12 +101,32 @@
       <p class="card-text"><%= listing.country %></p>
     </div>
   </div>
-  <div class="btns">
-    <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit-btn">Edit</a>
-    <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-      <button class="btn btn-dark">Delete</button>
-    </form>
-  </div>
+  <% if(currUser && listing.owner._id.toString() === currUser._id.toString()) { %>
+    <div class="btns">
+      <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit-btn">Edit</a>
+      <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+        <button class="btn btn-dark">Delete</button>
+      </form>
+    </div>
+  <% } %>
+
+  <% if(currUser && listing.owner._id.toString() !== currUser._id.toString()) { %>
+    <div class="card p-3 mb-4 mx-auto" style="max-width: 500px;">
+      <h5 class="text-center">Book This Place</h5>
+      <form action="/bookings" method="POST">
+        <input type="hidden" name="booking[listingId]" value="<%= listing._id %>">
+        <div class="mb-3">
+          <label class="form-label">Check-in</label>
+          <input type="date" class="form-control" name="booking[checkIn]" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Check-out</label>
+          <input type="date" class="form-control" name="booking[checkOut]" required>
+        </div>
+        <button class="btn btn-dark w-100">Confirm Booking</button>
+      </form>
+    </div>
+  <% } %>
 
   <hr />
   <div class="help mb-3 col-10 col-md-8">
@@ -152,9 +172,26 @@
               <p class="starability-result card-text" data-rating=<%= review.rating %>></p>
               <p class="card-text"><%= review.comment %></p>
             </div>
-            <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%=review._id %>?_method=DELETE">
-              <button class="btn btn-dark">Delete</button>
-            </form>
+            <% if(currUser && review.author._id.toString() === currUser._id.toString()) { %>
+              <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%=review._id %>?_method=PUT">
+                <div class="mb-2">
+                  <label class="form-label">Edit Rating</label>
+                  <select class="form-select form-select-sm" name="review[rating]">
+                    <% for(let i = 1; i <= 5; i++) { %>
+                      <option value="<%= i %>" <%= review.rating === i ? "selected" : "" %>><%= i %> Star<%= i > 1 ? "s" : "" %></option>
+                    <% } %>
+                  </select>
+                </div>
+                <div class="mb-2">
+                  <label class="form-label">Edit Comment</label>
+                  <textarea class="form-control" name="review[comment]" rows="3" required><%= review.comment %></textarea>
+                </div>
+                <button class="btn btn-outline-dark btn-sm">Save</button>
+              </form>
+              <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%=review._id %>?_method=DELETE">
+                <button class="btn btn-dark">Delete</button>
+              </form>
+            <% } %>
           </div>
         <% } %>
       </div>

@@ -15,6 +15,7 @@ const flash=require("connect-flash");
 const listingRouter=require("./routes/listing.js")
 const reviewRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js")
+const bookingRouter=require("./routes/booking.js");
 const passport=require("passport");
 const LocalStrategy=require("passport-local");
 const User=require("./models/user.js");
@@ -72,8 +73,10 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 app.use((req,res,next)=>{
-  res.locals.Success=req.flash("Success");
-  res.locals.error=req.flash("error");
+  res.locals.success = req.flash("success");
+  res.locals.Success = req.flash("Success");
+  res.locals.error = req.flash("error");
+  res.locals.Error = req.flash("Error");
   res.locals.currUser=req.user;
   next();
 })
@@ -87,6 +90,7 @@ app.use((req,res,next)=>{
 // })
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
+app.use("/bookings", bookingRouter);
 app.get("/chatbot", (req, res) => {
   res.render("listings/chatbot.ejs");
 });

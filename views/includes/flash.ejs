@@ -1,12 +1,17 @@
-<% if(Success && Success.length){ %>
+<% 
+  const successMessages = typeof success !== 'undefined' && success && success.length ? success : (typeof Success !== 'undefined' && Success && Success.length ? Success : []);
+  const errorMessages = typeof error !== 'undefined' && error && error.length ? error : (typeof Error !== 'undefined' && Error && Error.length ? Error : []);
+%>
+
+<% if(successMessages.length){ %>
     <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-        <%= Success %>
+        <%= successMessages[0] %>
  </div> 
 <% } %>
-<% if(error && error.length){ %>
+<% if(errorMessages.length){ %>
     <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-        <%= error %>
+        <%= errorMessages[0] %>
  </div> 
 <% } %>

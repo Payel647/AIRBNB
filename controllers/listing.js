@@ -1,4 +1,5 @@
 const Listing = require("../models/listing.js");
+const Booking = require("../models/booking.js");
 module.exports.index=async (req, res) => {
     const allListings = await Listing.find({});
     res.render("listings/index.ejs", { allListings });
@@ -9,11 +10,12 @@ module.exports.renderNewForm=(req, res) => {
 module.exports.showListing= async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id).populate({path:"reviews",populate:{ path:"author"},}).populate("owner");
+  const bookings = await Booking.find({ listing: id });
   if(!listing){
     req.flash("error","Listing you requested for does not exist!");
-    res.redirect("/listings");
+    return res.redirect("/listings");
   }
-  res.render("listings/show.ejs", { listing, mapboxToken: process.env.MAP_API_KEY });
+  res.render("listings/show.ejs", { listing, bookings, mapboxToken: process.env.MAP_API_KEY });
 }
 module.exports.createListing=async(req, res,next) => {
   console.log(req.body);

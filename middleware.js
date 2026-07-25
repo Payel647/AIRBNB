@@ -36,8 +36,7 @@ module.exports.validateListing=(req,res,next)=>{
     }
   };
 module.exports.validateReview=(req,res,next)=>{
-    console.log(req);
-    let {error}= reviewSchema.validate(req.body.value);
+    let {error}= reviewSchema.validate(req.body);
     if(error){
       let errMsg=error.details.map((el)=>el.message).join(",");
       throw new ExpressError(400,errMsg);
