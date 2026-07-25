@@ -1,4 +1,4 @@
-# WanderLust Airbnb Clone
+# WanderLust
 
 A Node.js/Express Airbnb-style listing app built with EJS templates, MongoDB, user authentication, booking management, and a simple chatbot experience.
 
