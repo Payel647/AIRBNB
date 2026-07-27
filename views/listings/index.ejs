@@ -59,6 +59,40 @@
       transform: scale(1.1);
   }
 
+  .wishlist-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      border: none;
+      background: rgba(255,255,255,0.9);
+      color: #ef4444;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+      z-index: 3;
+  }
+
+  .wishlist-btn:hover {
+      transform: scale(1.08);
+      background: #fff;
+  }
+
+  .wishlist-btn.active {
+      background: #ffedf0;
+      color: #dc2626;
+  }
+
+  .listing-card {
+      position: relative;
+  }
+
   @media (max-width: 768px) {
       .row {
         display: flex;
@@ -74,6 +108,22 @@
       }
   }
 </style>
+
+<section class="hero-section">
+  <div>
+    <div class="hero-pill"><i class="fa-solid fa-star"></i> Curated stays • Premium comfort</div>
+    <h1 class="hero-title">Find a place that feels like home.</h1>
+    <p class="hero-sub">Discover stylish homes, cozy cabins, and city escapes tailored for your next trip with BookMyStay.</p>
+    <div class="hero-actions">
+      <a class="btn btn-light hero-cta" href="/listings/new">List your stay</a>
+      <a class="btn btn-outline-light" href="/listings">Explore stays</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="price-chip"><i class="fa-solid fa-hotel"></i> 250+ premium stays</div>
+    <div class="price-chip"><i class="fa-solid fa-shield-heart"></i> Verified hosts</div>
+  </div>
+</section>
 
 <div id="filters">
   <% const categories = [
@@ -112,14 +162,16 @@
     <% for(let listing of allListings) { %>
     <a href="/listings/<%= listing._id %>" class="listing-link">
     <div class="card col listing-card">
-      <img src="<%= listing.image.url%>" class="card-img-top" alt="Listing_image"  style="height: 20rem"/>
+      <button class="wishlist-btn" type="button" aria-label="Add to wishlist" title="Add to wishlist">
+        <i class="fa-regular fa-heart"></i>
+      </button>
+      <img src="<%= listing.image.url%>" class="card-img-top" alt="Listing_image"/>
       <div class="card-img-overlay"></div>
       <div class="card-body">
         <p class="card-text">
-          <b><%= listing.title %> <br/></b>
-          &#8377;<%= listing.price  %>/night <i class="tax-info"><b>+18% GST</b></i>
-          <br/> <br/>
+          <b><%= listing.title %></b>
         </p>
+        <div class="price-chip">₹<%= listing.price %>/night <i class="tax-info"><b>+18% GST</b></i></div>
       </div>
     </div>
   </a>
@@ -142,6 +194,18 @@
            info.style.display = "none";
        }
    });
+
+   document.querySelectorAll('.wishlist-btn').forEach((btn) => {
+       btn.addEventListener('click', (e) => {
+           e.preventDefault();
+           e.stopPropagation();
+           btn.classList.toggle('active');
+           const icon = btn.querySelector('i');
+           icon.classList.toggle('fa-regular');
+           icon.classList.toggle('fa-solid');
+       });
+   });
+
    document.getElementById("chatbotBtn").addEventListener("click", () => {
        window.location.href = "/chatbot"; 
    });

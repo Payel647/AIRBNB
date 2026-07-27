@@ -10,7 +10,7 @@ module.exports.signup=async(req,res)=>{
         if(err){
             return next(err);
         }
-        req.flash("Success","Welcome to Wanderlust!");
+        req.flash("Success","Welcome to BookMyStay!");
         res.redirect("/listings");
     });
 } catch(e){
@@ -22,7 +22,7 @@ module.exports.renderLoginForm=(req,res)=>{
     res.render("users/login.ejs");
 };
 module.exports.login=async(req,res)=>{
-    req.flash("Success","Welcome back to WanderLust!");
+    req.flash("Success","Welcome back to BookMyStay!");
     let redirectUrl=res.locals.redirectUrl || "/listings";
     res.redirect(redirectUrl);
  };
