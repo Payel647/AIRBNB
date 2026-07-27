@@ -8,7 +8,6 @@ A Node.js/Express Airbnb-style listing app built with EJS templates, MongoDB, us
 - Listing creation, editing, and deletion
 - Image upload using Cloudinary
 - Category browsing and search
-- Booking creation with availability validation
 - User reviews and review management
 - Interactive chatbot page for user questions
 - Map geocoding for listing locations
